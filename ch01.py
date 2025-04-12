@@ -2,8 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 from matplotlib import rcParams
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.stats.stattools import durbin_watson
 
 import data
+
 
 def plot_figure(x_data, y_data, xlabel, ylabel, x_range, y_range, x_ticks, y_ticks):
     '''
@@ -120,3 +123,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 例題1.5
+X = np.column_stack((data.fig_1_10_b[1:56], data.fig_1_10_c[0:55]))
+X = sm.add_constant(X)
+model = sm.OLS(data.fig_1_10_a[7:62], X).fit()
+print(model.summary())
